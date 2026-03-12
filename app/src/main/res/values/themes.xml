@@ -2,4 +2,20 @@
 <resources>
 
     <style name="Theme.PatientCare" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.PatientCare.Splash" parent="Theme.SplashScreen">
+
+        <!-- Splash background -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        <!-- Animated icon -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/patient_care_admin_icon</item>
+
+        <!-- Optional icon background -->
+        <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
+
+        <!-- After splash, use your normal theme -->
+        <item name="postSplashScreenTheme">@style/Theme.PatientCare</item>
+
+    </style>
 </resources>
