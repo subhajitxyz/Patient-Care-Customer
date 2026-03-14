@@ -45,10 +45,20 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             navController = navController,
                             startDestination = startDestinationState.value!!,
-                            modifier = Modifier.padding(innerPadding)
+                            modifier = Modifier
                         ) {
                             composable( route = Screens.ScreenLogin.route) {
-                                LoginScreen(navController = navController)
+                                LoginScreen(
+                                    modifier = Modifier.padding(innerPadding),
+                                    navigateToDashboard = {
+                                        navController.navigate(Screens.ScreenDashboard.route) {
+                                            popUpTo(Screens.ScreenLogin.route) {
+                                                inclusive = true
+                                            }
+                                            launchSingleTop = true
+                                        }
+                                    }
+                                )
                             }
 
                             composable(route = Screens.ScreenDashboard.route) {
