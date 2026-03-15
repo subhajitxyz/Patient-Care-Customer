@@ -1,7 +1,6 @@
 package com.real.patientcare
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +18,7 @@ import com.real.patientcare.navigation.Screens
 import com.real.patientcare.ui.presentation.dashboard.DashboardScreen
 import com.real.patientcare.ui.presentation.login.LoginScreen
 import com.real.patientcare.ui.presentation.splash.SplashViewModel
+import com.real.patientcare.ui.profile.ProfileScreen
 import com.real.patientcare.ui.theme.PatientCareTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,7 +63,14 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Screens.ScreenDashboard.route) {
                                 DashboardScreen(
+                                    paddingValues = innerPadding,
                                     navController = navController
+                                )
+                            }
+
+                            composable(route = Screens.ScreenProfile.route) {
+                                ProfileScreen(
+
                                 )
                             }
                         }
