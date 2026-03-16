@@ -98,7 +98,7 @@ fun LoginScreen(
                 },
                 isError = state.emailError != null,
                 label = { Text("Email") },
-                maxLines = 1,
+                singleLine = true,
                 keyboardActions = KeyboardActions(
                     onNext = {
                         passwordFocusRequester.requestFocus()
@@ -125,7 +125,7 @@ fun LoginScreen(
                 isError = state.passwordError != null,
                 visualTransformation = PasswordVisualTransformation(),
                 label = { Text("Password") },
-                maxLines = 1,
+                singleLine = true,
                 keyboardActions = KeyboardActions(
                     onDone = {
                         focusManager.clearFocus()
@@ -160,7 +160,8 @@ fun LoginScreen(
                 if (state.isLoading)
                     CircularProgressIndicator(
                         modifier = Modifier.size(30.dp),
-                        strokeWidth = 2.dp
+                        strokeWidth = 2.dp,
+                        color = Color.Black
                     )
 
                 else

@@ -1,6 +1,5 @@
-package com.real.patientcare.ui.profile
+package com.real.patientcare.ui.presentation.profile
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.real.patientcare.domain.repo.PatientInfoRepository

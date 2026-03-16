@@ -1,4 +1,4 @@
-package com.real.patientcare.ui.profile
+package com.real.patientcare.ui.presentation.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

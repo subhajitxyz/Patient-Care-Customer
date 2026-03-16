@@ -19,3 +19,20 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# Firebase
+-keep class com.google.firebase.components.ComponentRegistrar
+-keep class * implements com.google.firebase.components.ComponentRegistrar
+-dontwarn com.google.firebase.**
+-keepattributes *Annotation*
+
+# Hilt
+-keep class dagger.hilt.** { *; }
+-keep class javax.inject.** { *; }
+-keep class hilt_aggregated_deps.** { *; }
+
+# Kotlin metadata
+-keep class kotlin.Metadata { *; }
+
+# Models
+-keep class com.real.patientcare.domain.model.** { *; }
+-keep class com.real.patientcare.data.model.** { *; }

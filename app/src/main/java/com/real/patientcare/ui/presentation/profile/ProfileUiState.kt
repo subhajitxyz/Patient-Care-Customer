@@ -1,4 +1,4 @@
-package com.real.patientcare.ui.profile
+package com.real.patientcare.ui.presentation.profile
 
 data class ProfileUiState(
     val uid: String = "",

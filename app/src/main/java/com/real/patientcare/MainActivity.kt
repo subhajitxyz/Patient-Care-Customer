@@ -18,7 +18,7 @@ import com.real.patientcare.navigation.Screens
 import com.real.patientcare.ui.presentation.dashboard.DashboardScreen
 import com.real.patientcare.ui.presentation.login.LoginScreen
 import com.real.patientcare.ui.presentation.splash.SplashViewModel
-import com.real.patientcare.ui.profile.ProfileScreen
+import com.real.patientcare.ui.presentation.profile.ProfileScreen
 import com.real.patientcare.ui.theme.PatientCareTheme
 import dagger.hilt.android.AndroidEntryPoint
 

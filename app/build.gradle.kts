@@ -28,7 +28,9 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -56,8 +58,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -65,6 +65,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 
     implementation("androidx.navigation:navigation-compose:2.9.6")
 
@@ -86,7 +87,11 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Firebase BoM (latest stable 32.x)
-    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+//    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-messaging")
 
     // Firebase Authentication (no version needed!)
     implementation("com.google.firebase:firebase-auth-ktx")

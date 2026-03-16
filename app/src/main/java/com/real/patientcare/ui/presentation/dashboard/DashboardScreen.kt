@@ -91,21 +91,27 @@ fun DashboardScreen(
             }
         ) {
 
-            if(healthStates.isLoading) {
-                CircularProgressIndicator()
-            } else {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Top
+            ) {
+                Text(
+                    modifier = Modifier.padding(start = 16.dp , top = 20.dp),
+                    text = "Health Metrics",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp
+                )
+                Spacer(modifier = Modifier.fillMaxWidth().height(3.dp))
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Top
-                ) {
-                    Text(
-                        modifier = Modifier.padding(start = 16.dp , top = 20.dp),
-                        text = "Health Metrics",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp
-                    )
-                    Spacer(modifier = Modifier.fillMaxWidth().height(3.dp))
+                if(healthStates.isLoading) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+
+                } else {
 
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
@@ -115,9 +121,11 @@ fun DashboardScreen(
                             DashboardTile(item, currentDate)
                         }
                     }
-                }
 
+                }
             }
+
+
 
         }
     }
