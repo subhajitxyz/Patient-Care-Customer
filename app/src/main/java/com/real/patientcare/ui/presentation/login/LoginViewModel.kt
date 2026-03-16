@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.real.patientcare.domain.repo.LoginRepository
+import com.real.patientcare.domain.repo.PatientInfoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
+    private val patientInfoRepository: PatientInfoRepository
 ): ViewModel() {
 
     private val _state = MutableStateFlow(LoginContracts.State())
@@ -56,7 +58,14 @@ class LoginViewModel @Inject constructor(
                 _state.update { it.copy(isLoading = true) }
 
                 val authResult = loginRepository.loginUser(email, password)
-                if (authResult?.user != null) {
+                val fcmToken = loginRepository.getFcmToken()
+
+                if (authResult?.user != null && fcmToken != null) {
+                    // add fcm token in firebase
+                    patientInfoRepository.updateFcmToken(
+                        uid = authResult.user!!.uid,
+                        fcmToken = fcmToken
+                    )
                     _effect.send(LoginContracts.Effect.NavigateToDashboard)
                 } else {
                     _effect.send(

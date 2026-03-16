@@ -4,4 +4,5 @@ import com.real.patientcare.domain.model.PatientBasicInfo
 
 interface PatientInfoRepository {
     suspend fun getPatientBasicInfo(): Result<PatientBasicInfo>
+    suspend fun updateFcmToken(uid: String, fcmToken: String)
 }
