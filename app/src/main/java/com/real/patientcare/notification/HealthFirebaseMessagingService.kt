@@ -110,7 +110,7 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.patient_care_admin_icon)
+            .setSmallIcon(R.drawable.patient_care_icon)
             .setContentTitle(title)
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))

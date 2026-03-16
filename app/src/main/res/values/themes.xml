@@ -9,7 +9,7 @@
         <item name="windowSplashScreenBackground">@color/white</item>
 
         <!-- Animated icon -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/patient_care_admin_icon</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/patient_care_icon</item>
 
         <!-- Optional icon background -->
         <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
