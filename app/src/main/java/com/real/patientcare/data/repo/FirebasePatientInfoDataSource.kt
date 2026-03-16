@@ -38,4 +38,13 @@ class FirebasePatientInfoDataSource @Inject constructor(
         }
     }
 
+    suspend fun updateFcmToken(uid: String, fcmToken: String) {
+        val ref = firestore.collection("patients")
+            .document(uid)
+            .collection("basic_info")
+            .document("profile")
+
+        ref.update("fcmToken", fcmToken).await()
+    }
+
 }

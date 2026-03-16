@@ -16,4 +16,8 @@ class PatientInfoRepoImpl @Inject constructor(
             }
     }
 
+    override suspend fun updateFcmToken(uid: String, fcmToken: String) {
+        dataSource.updateFcmToken(uid, fcmToken)
+    }
+
 }

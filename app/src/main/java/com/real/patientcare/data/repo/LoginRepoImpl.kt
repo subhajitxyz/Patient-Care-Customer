@@ -17,4 +17,8 @@ class LoginRepoImpl @Inject constructor(
     override fun checkUserLoginStatus(): Boolean {
         return authManager.checkUserLoginStatus()
     }
+
+    override suspend fun getFcmToken(): String? {
+        return authManager.getFcmToken()
+    }
 }
