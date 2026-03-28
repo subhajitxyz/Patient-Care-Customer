@@ -81,15 +81,17 @@ class DashboardViewModel @Inject constructor(
                                     color = TileLightBlue
                                 ),
 
-                                DashboardFeature(
-                                    type = FeatureType.BREATHING_PROBLEM,
-                                    name = "Breathing\nProblem",
-                                    seen = healthStatus.extremeBreath?.seen ?: false,
-                                    accuracy = healthStatus.extremeBreath?.accuracy ?: "0",
-                                    date = healthStatus.extremeBreath?.date ?: "",
-                                    time = healthStatus.extremeBreath?.time ?: "",
-                                    color = TileBlue
-                                ),
+                                // NOTE: Currently turning off this feature , Because we do not have an any trained model
+                                // probably, we will enable it later.
+//                                DashboardFeature(
+//                                    type = FeatureType.BREATHING_PROBLEM,
+//                                    name = "Breathing\nProblem",
+//                                    seen = healthStatus.extremeBreath?.seen ?: false,
+//                                    accuracy = healthStatus.extremeBreath?.accuracy ?: "0",
+//                                    date = healthStatus.extremeBreath?.date ?: "",
+//                                    time = healthStatus.extremeBreath?.time ?: "",
+//                                    color = TileBlue
+//                                ),
 
                                 DashboardFeature(
                                     type = FeatureType.COUGHING_PROBLEM,
