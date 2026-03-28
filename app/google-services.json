@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "975331792304",
+    "project_id": "patient-care-admin",
+    "storage_bucket": "patient-care-admin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975331792304:android:f3e0b779ae8cc851457275",
+        "android_client_info": {
+          "package_name": "com.real.patientcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYqHk8ziE3d1lzZIv2eYRyaSbK1RA6alg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975331792304:android:c0c6e90903a7fe02457275",
+        "android_client_info": {
+          "package_name": "com.real.patientcareadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYqHk8ziE3d1lzZIv2eYRyaSbK1RA6alg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
