@@ -5,5 +5,6 @@ import com.google.firebase.Timestamp
 data class HealthEventDTO(
     val accuracy: String = "",
     val seen: Boolean = false,
-    val time: Timestamp? = null
+    val time: Timestamp? = null,
+    val eventId: String = ""
 )

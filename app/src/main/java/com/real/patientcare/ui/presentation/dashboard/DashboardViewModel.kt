@@ -78,7 +78,8 @@ class DashboardViewModel @Inject constructor(
                                     accuracy = healthStatus.heartAttack?.accuracy ?: "0",
                                     date = healthStatus.heartAttack?.date ?: "",
                                     time = healthStatus.heartAttack?.time ?: "",
-                                    color = TileLightBlue
+                                    color = TileLightBlue,
+                                    eventId = healthStatus.heartAttack?.eventId ?: ""
                                 ),
 
                                 // NOTE: Currently turning off this feature , Because we do not have an any trained model
@@ -100,7 +101,8 @@ class DashboardViewModel @Inject constructor(
                                     accuracy = healthStatus.extremeCough?.accuracy ?: "0",
                                     date = healthStatus.extremeCough?.date ?: "",
                                     time = healthStatus.extremeCough?.time ?: "",
-                                    color = TileDarkYello
+                                    color = TileDarkYello,
+                                    eventId = healthStatus.extremeCough?.eventId ?: ""
                                 )
                             )
 

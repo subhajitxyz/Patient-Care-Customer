@@ -4,5 +4,6 @@ data class HealthEvent(
     val accuracy: String,
     val seen: Boolean,
     val date: String,
-    val time: String
+    val time: String,
+    val eventId: String
 )
