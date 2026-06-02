@@ -1,6 +1,7 @@
 package com.real.patientcare.data.repo
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.real.patientcare.data.model.PatientBasicInfoDTO
 import kotlinx.coroutines.tasks.await
@@ -44,7 +45,10 @@ class FirebasePatientInfoDataSource @Inject constructor(
             .collection("basic_info")
             .document("profile")
 
-        ref.update("fcmToken", fcmToken).await()
+        ref.update(
+            "fcmToken",
+            FieldValue.arrayUnion(fcmToken)
+        ).await()
     }
 
 }

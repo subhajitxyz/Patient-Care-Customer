@@ -67,7 +67,7 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
             .document(uid)
             .collection("basic_info")
             .document("profile")
-            .update("fcmTokens", FieldValue.arrayUnion(token))
+            .update("fcmToken", FieldValue.arrayUnion(token))
     }
 
 
