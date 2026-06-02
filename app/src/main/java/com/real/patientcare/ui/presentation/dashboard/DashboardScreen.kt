@@ -112,7 +112,18 @@ fun DashboardScreen(
                         contentPadding = PaddingValues(16.dp)
                     ) {
                         items(healthStates.stateList) { item ->
-                            DashboardTile(item, currentDate)
+                            DashboardTile(item, currentDate) {
+                                navController.navigate(
+                                    Screens.ScreenEmergencyVideo.createRoute(
+                                        emergencyName = when(item.type) {
+                                            FeatureType.HEART_ATTACK -> "heart_attack"
+                                            FeatureType.COUGHING_PROBLEM ->"extreme_cough"
+                                            else -> ""
+                                        },
+                                        eventId = item.eventId
+                                    )
+                                )
+                            }
                         }
                     }
                 }
@@ -167,7 +178,8 @@ fun ParentInfoHeader(
 @Composable
 fun DashboardTile(
     feature: DashboardFeature,
-    currentDate: String
+    currentDate: String,
+    videoOnClick: () -> Unit
 ) {
 
     val infiniteTransition = rememberInfiniteTransition(label = "flash")
@@ -191,28 +203,47 @@ fun DashboardTile(
         modifier = Modifier.fillMaxWidth()
             .padding(8.dp)
             .clickable {
+                videoOnClick()
             },
         colors = CardDefaults.cardColors(containerColor = if(showEmergencyColor) animatedColor else feature.color)
     ) {
+
         Column(
             modifier = Modifier.fillMaxSize().padding(8.dp),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
-                text = feature.name,
-                color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 2,
-                style = TextStyle(
-                    shadow = Shadow(
-                        color = Color.Black.copy(alpha = 0.4f),
-                        offset = Offset(2f, 2f),
-                        blurRadius = 6f
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    text = feature.name,
+                    color = Color.White,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2,
+                    style = TextStyle(
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.4f),
+                            offset = Offset(2f, 2f),
+                            blurRadius = 6f
+                        )
                     )
                 )
-            )
+
+                Image(
+                    modifier = Modifier.padding(4.dp).size(30.dp),
+                    painter = painterResource(R.drawable.video_icon),
+                    contentDescription = "User Profile Icon"
+                )
+            }
+
             Spacer(Modifier.height(2.dp))
+
+
 
             Text(
                 text = if (feature.seen) "Detected" else "Good Condition",

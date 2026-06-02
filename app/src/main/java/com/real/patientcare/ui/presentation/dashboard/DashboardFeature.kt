@@ -10,7 +10,8 @@ data class DashboardFeature(
     val accuracy: String,
     val date: String,
     val time: String,
-    val color: Color
+    val color: Color,
+    val eventId: String
 )
 
 enum class FeatureType {

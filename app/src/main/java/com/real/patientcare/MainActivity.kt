@@ -11,11 +11,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.real.patientcare.navigation.Screens
 import com.real.patientcare.ui.presentation.dashboard.DashboardScreen
+import com.real.patientcare.ui.presentation.emergencyVideo.EmergencyVideoScreen
 import com.real.patientcare.ui.presentation.login.LoginScreen
 import com.real.patientcare.ui.presentation.splash.SplashViewModel
 import com.real.patientcare.ui.profile.ProfileScreen
@@ -71,6 +74,27 @@ class MainActivity : ComponentActivity() {
                             composable(route = Screens.ScreenProfile.route) {
                                 ProfileScreen(
 
+                                )
+                            }
+
+                            composable(
+                                route = Screens.ScreenEmergencyVideo.route,
+                                arguments = listOf(
+                                    navArgument("emergencyName") {
+                                        type = NavType.StringType
+                                    },
+
+                                    navArgument("eventId") {
+                                        type = NavType.StringType
+                                    }
+                                )
+                            ) { backStackEntry ->
+                                val eventId = backStackEntry.arguments?.getString("eventId") ?: ""
+                                val emergencyName = backStackEntry.arguments?.getString("emergencyName") ?: ""
+
+                                EmergencyVideoScreen(
+                                    emergencyName = emergencyName,
+                                    eventId = eventId
                                 )
                             }
                         }

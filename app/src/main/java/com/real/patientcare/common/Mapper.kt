@@ -24,7 +24,8 @@ fun HealthEventDTO.toDomain(): HealthEvent {
         accuracy = accuracy,
         seen = seen,
         date = date,
-        time = timeString
+        time = timeString,
+        eventId = eventId
     )
 }
 
