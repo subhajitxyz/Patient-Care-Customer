@@ -42,14 +42,21 @@ exports.sendHealthAlertNotification = onDocumentUpdated(
           .doc("profile")
           .get();
 
-        if (!userDoc.exists) return;
+        if (!userDoc.exists) continue;
 
-        const token = userDoc.data().fcmToken;
-        if (!token) return;
+        const tokens = userDoc.data().fcmToken || [];
 
-        await admin.messaging().send({
-          token,
-          android: { priority: "high" },
+        if (!Array.isArray(tokens) || tokens.length === 0) {
+          continue;
+        }
+
+        const response = await admin.messaging().sendEachForMulticast({
+          tokens,
+
+          android: {
+            priority: "high",
+          },
+
           data: {
             title: notification.title,
             body: notification.body,
@@ -60,6 +67,41 @@ exports.sendHealthAlertNotification = onDocumentUpdated(
           },
         });
 
+        // Remove invalid tokens
+        const invalidTokens = [];
+
+        response.responses.forEach((resp, idx) => {
+          if (!resp.success) {
+
+            const errorCode = resp.error?.code;
+
+            if (
+              errorCode ===
+                "messaging/registration-token-not-registered" ||
+              errorCode ===
+                "messaging/invalid-registration-token"
+            ) {
+              invalidTokens.push(tokens[idx]);
+            }
+          }
+        });
+
+        // Cleanup invalid tokens
+        if (invalidTokens.length > 0) {
+
+          await admin
+            .firestore()
+            .collection("patients")
+            .doc(patientId)
+            .collection("basic_info")
+            .doc("profile")
+            .update({
+              fcmToken:
+                admin.firestore.FieldValue.arrayRemove(
+                  ...invalidTokens
+                ),
+            });
+        }
       }
     }
   }
