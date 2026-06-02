@@ -1,5 +1,11 @@
 package com.real.patientcare.ui.presentation.dashboard
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -30,24 +36,31 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.real.patientcare.R
+import com.real.patientcare.common.AppSession
 import com.real.patientcare.navigation.Screens
 import com.real.patientcare.ui.theme.PrimaryBackgroundBlue
 import java.text.SimpleDateFormat
@@ -60,6 +73,50 @@ fun DashboardScreen(
     dashboardViewModel: DashboardViewModel = hiltViewModel(),
     paddingValues: PaddingValues
 ) {
+    val context = LocalContext.current
+    var showNotificationDialog by remember {
+        mutableStateOf(false)
+    }
+
+    val notificationPermissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            // User responded to permission dialog
+            // Continue app normally either way
+            showNotificationDialog = false
+        }
+
+    LaunchedEffect(Unit) {
+        val hasPermission = context.hasNotificationPermission()
+        if (
+            !hasPermission &&
+            !AppSession.notificationPromptShown
+        ) {
+            AppSession.notificationPromptShown = true
+            showNotificationDialog = true
+        }
+    }
+
+    if (showNotificationDialog) {
+        NotificationPermissionDialog(
+            onEnableClick = {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    notificationPermissionLauncher.launch(
+                        Manifest.permission.POST_NOTIFICATIONS
+                    )
+                } else {
+                    showNotificationDialog = false
+                }
+            },
+            onDismissClick = {
+                showNotificationDialog = false
+            }
+        )
+    }
+
+
+
     val healthStates by dashboardViewModel.healthStates.collectAsStateWithLifecycle()
     val patientBasicInfo by dashboardViewModel.headerInfoState.collectAsStateWithLifecycle()
     val currentDate = remember {
@@ -310,5 +367,17 @@ fun DashboardTile(
                 )
             )
         }
+    }
+}
+
+
+fun Context.hasNotificationPermission(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    } else {
+        NotificationManagerCompat.from(this).areNotificationsEnabled()
     }
 }
