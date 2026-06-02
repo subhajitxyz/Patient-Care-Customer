@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
 import android.net.Uri
 import android.os.Build
 import androidx.core.app.NotificationCompat
@@ -76,7 +77,10 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
         healthType: String
     ) {
 
-        val channelId = "health_alert_channel"
+        val channelId = "health_alert_channel_v1"
+        val soundUri = Uri.parse(
+            "android.resource://${packageName}/${R.raw.demo_emergency_sound}"
+        )
 
         val intent = Intent(
             Intent.ACTION_VIEW,
@@ -97,6 +101,9 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val audioAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .build()
 
             val channel = NotificationChannel(
                 channelId,
@@ -104,8 +111,15 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Notifications for detected health problems"
+                enableVibration(true)
+                vibrationPattern = longArrayOf(
+                    0,
+                    500,
+                    300,
+                    500
+                )
+                setSound(soundUri, audioAttributes)
             }
-
             notificationManager.createNotificationChannel(channel)
         }
 
@@ -117,6 +131,17 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
+            // Pre Oreo sound
+            .setSound(soundUri)
+            // Vibration
+            .setVibrate(
+                longArrayOf(
+                    0,
+                    500,
+                    300,
+                    500
+                )
+            )
             .build()
 
         val notificationId = healthType.hashCode()
