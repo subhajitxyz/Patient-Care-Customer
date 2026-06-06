@@ -77,9 +77,9 @@ class HealthFirebaseMessagingService : FirebaseMessagingService() {
         healthType: String
     ) {
 
-        val channelId = "health_alert_channel_v1"
+        val channelId = "health_alert_channel_v2"
         val soundUri = Uri.parse(
-            "android.resource://${packageName}/${R.raw.demo_emergency_sound}"
+            "android.resource://${packageName}/${R.raw.patient_care_alert_noti}"
         )
 
         val intent = Intent(
