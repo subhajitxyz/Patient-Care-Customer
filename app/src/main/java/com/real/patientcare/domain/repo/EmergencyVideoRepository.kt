@@ -49,7 +49,7 @@ class EmergencyVideoRepository @Inject constructor(
                 Exception("Emergency video not found")
             )
 
-            val videoUrl = remote.videoUrl.ifEmpty { return Result.failure(Exception("Video unavailable 2")) }
+            val videoUrl = remote.videoUrl.ifEmpty { return Result.failure(Exception("Video unavailable")) }
 
             if (remote.video_event_id != eventId) {
                 return Result.failure(

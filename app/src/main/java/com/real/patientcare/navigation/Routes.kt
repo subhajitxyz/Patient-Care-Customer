@@ -12,4 +12,12 @@ sealed class Screens(val route: String) {
             return "emergency_video_screen/$emergencyName/$eventId"
         }
     }
+
+    object ScreenHistory :
+        Screens("history_screen/{date}") {
+
+        fun createRoute(date: String): String {
+            return "history_screen/$date"
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.real.patientcare.di
 import android.content.Context
 import androidx.room.Room
 import com.real.patientcare.localdb.AppDatabase
+import com.real.patientcare.localdb.HistoryDao
 import com.real.patientcare.localdb.VideoDao
 import dagger.Module
 import dagger.Provides
@@ -35,5 +36,14 @@ object DatabaseModule {
     ): VideoDao {
 
         return database.videoDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHistoryDao(
+        database: AppDatabase
+    ): HistoryDao {
+
+        return database.historyDao()
     }
 }

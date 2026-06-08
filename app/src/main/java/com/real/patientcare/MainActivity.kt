@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.real.patientcare.navigation.Screens
+import com.real.patientcare.ui.presentation.calender.HistoryScreen
 import com.real.patientcare.ui.presentation.dashboard.DashboardScreen
 import com.real.patientcare.ui.presentation.emergencyVideo.EmergencyVideoScreen
 import com.real.patientcare.ui.presentation.login.LoginScreen
@@ -72,9 +73,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable(route = Screens.ScreenProfile.route) {
-                                ProfileScreen(
-
-                                )
+                                ProfileScreen()
                             }
 
                             composable(
@@ -97,6 +96,27 @@ class MainActivity : ComponentActivity() {
                                     eventId = eventId
                                 )
                             }
+
+                            composable(
+                                route = Screens.ScreenHistory.route,
+                                arguments = listOf(
+                                    navArgument("date") {
+                                        type = NavType.StringType
+                                    }
+                                )
+                            ) { backStackEntry ->
+
+                                val date =
+                                    backStackEntry.arguments?.getString("date")
+                                        ?: ""
+
+                                HistoryScreen(
+                                    modifier = Modifier.padding(innerPadding),
+                                    date = date
+                                )
+                            }
+
+
                         }
 
                     }

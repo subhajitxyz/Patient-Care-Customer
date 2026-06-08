@@ -63,6 +63,7 @@ import com.real.patientcare.R
 import com.real.patientcare.common.AppSession
 import com.real.patientcare.navigation.Screens
 import com.real.patientcare.ui.theme.PrimaryBackgroundBlue
+import com.yourapp.ui.components.PatientHistoryCalendar
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -147,6 +148,24 @@ fun DashboardScreen(
                 CardDefaults.cardColors(Color.White)
             }
         ) {
+            //subha
+            PatientHistoryCalendar(
+                modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 10.dp),
+                onDateClick = { date ->
+
+                    val formattedDate =
+                        SimpleDateFormat(
+                            "yyyy-MM-dd",
+                            Locale.getDefault()
+                        ).format(date)
+
+                    navController.navigate(
+                        Screens.ScreenHistory.createRoute(
+                            formattedDate
+                        )
+                    )
+                }
+            )
 
             if(healthStates.isLoading) {
                 CircularProgressIndicator()

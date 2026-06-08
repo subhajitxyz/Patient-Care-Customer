@@ -75,7 +75,7 @@ class EmergencyVideoViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         error = it.error
-                            ?: "Video unavailable 1"
+                            ?: "Video Loading, Try After few seconds."
                     )
                 }
             }
